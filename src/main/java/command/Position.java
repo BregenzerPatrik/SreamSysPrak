@@ -1,6 +1,8 @@
 package command;
 
-public class Position implements Comparable<Position>{
+import java.io.Serializable;
+
+public class Position implements Comparable<Position>, Serializable {
     private double x;
     private double y;
     private double z;

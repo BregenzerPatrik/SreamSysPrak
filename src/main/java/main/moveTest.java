@@ -37,6 +37,11 @@ public class moveTest {
                 positions[n][1]+=randomNum2;
                 positions[n][2]+=randomNum3;
                 new MoveItemCommand(movingObjects.get(n),movement_Data);
+                try {
+                    Thread.sleep(5);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
         }
