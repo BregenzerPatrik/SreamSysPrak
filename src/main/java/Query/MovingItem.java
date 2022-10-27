@@ -1,5 +1,7 @@
 package Query;
 
+import command.Position;
+
 /**
  * Hello world!
  *
@@ -7,7 +9,7 @@ package Query;
 public interface MovingItem
 {
     String getName();
-    int[] getLocation();
+    Position getLocation();
     int getNumberOfMoves();
     int getValue();
 }

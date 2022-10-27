@@ -4,8 +4,14 @@ import Query.EventStore;
 import Query.ItemCreatedEvent;
 
 public class CreateItemCommand extends Command{
+    public String getName() {
+        return name;
+    }
+
+    private String name;
+
     public CreateItemCommand(String name){
-        ItemCreatedEvent event=new ItemCreatedEvent(name,new int[3],0,0);
-        EventStore.singleInstance.store(event);
+        this.name=name;
+        CommandHandler.handle(this);
     }
 }

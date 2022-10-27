@@ -1,5 +1,7 @@
 package Query;
 
+import command.Position;
+
 import java.util.Collection;
 
 public class QueryImpl implements Query{
@@ -15,7 +17,7 @@ public class QueryImpl implements Query{
     }
 
     @Override
-    public Collection<MovingItemDTO> getMovingItemsAtPosition(int[] position) {
+    public Collection<MovingItemDTO> getMovingItemsAtPosition(Position position) {
         return ItemStore.singleInstance.getMovingItemsAtPosition(position);
     }
 }

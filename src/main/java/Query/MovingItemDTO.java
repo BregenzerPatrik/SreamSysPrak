@@ -1,11 +1,14 @@
 package Query;
 
+import command.DeleteItemCommand;
+import command.Position;
+
 public class MovingItemDTO implements MovingItem {
     private final String name;
-    private final int[] location;
+    private final Position location;
     private int numberOfMoves;
     private int value;
-    public MovingItemDTO(String name, int[] location, int numberOfMoves, int value  ){
+    public MovingItemDTO(String name, Position location, int numberOfMoves, int value  ){
         this.name=name;
         this.location=location;
         this.numberOfMoves=numberOfMoves;
@@ -14,7 +17,7 @@ public class MovingItemDTO implements MovingItem {
     public String getName(){
         return this.name;
     }
-    public int[] getLocation(){
+    public Position getLocation(){
         return this.location;
     }
     public int getNumberOfMoves(){
@@ -23,10 +26,14 @@ public class MovingItemDTO implements MovingItem {
     public int getValue(){
         return this.value;
     }
-    public void move(int[] moveCoords){
-        this.location[0]=this.location[0]+moveCoords[0];
-        this.location[1]=this.location[1]+moveCoords[1];
-        this.location[2]=this.location[2]+moveCoords[2];
+    public void move(Position moveCoords){
+        if(this.numberOfMoves>=19){
+            new DeleteItemCommand(this.name);
+            return;
+        }
+        this.location.setX(this.location.getX()+moveCoords.getX());
+        this.location.setY(this.location.getY()+moveCoords.getY());
+        this.location.setZ(this.location.getZ()+moveCoords.getZ());
         this.numberOfMoves += 1;
     }
     public void changeValue(int newValue){
@@ -35,6 +42,6 @@ public class MovingItemDTO implements MovingItem {
 
     @Override
     public String toString() {
-        return name+"("+location[0]+","+location[1]+","+location[2]+")"+"value: "+value+" number of moves:"+numberOfMoves;
+        return name+"("+ location.getX()+","+location.getY()+","+location.getZ()+")"+"value: "+value+" number of moves:"+numberOfMoves;
     }
 }

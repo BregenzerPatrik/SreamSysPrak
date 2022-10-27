@@ -4,6 +4,7 @@ import Query.MovingItemDTO;
 import Query.QueryImpl;
 import command.CreateItemCommand;
 import command.MoveItemCommand;
+import command.Position;
 
 import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -12,7 +13,7 @@ public class moveTest {
     private final int move_min=-100;
     private final int move_max= 100;
     private int num_of_MovingObjects=5;
-    private int num_of_rounds=2000;
+    private int num_of_rounds=19;
     private int[][] positions= new int[num_of_MovingObjects][3];
     private LinkedList<String> movingObjects;
 
@@ -31,10 +32,7 @@ public class moveTest {
                 int randomNum1 = ThreadLocalRandom.current().nextInt(this.move_min, this.move_max + 1);
                 int randomNum2 = ThreadLocalRandom.current().nextInt(this.move_min, this.move_max + 1);
                 int randomNum3 = ThreadLocalRandom.current().nextInt(this.move_min, this.move_max + 1);
-                int [] movement_Data= new int [3];
-                movement_Data[0]=randomNum1;
-                movement_Data[1]=randomNum2;
-                movement_Data[2]=randomNum3;
+                Position movement_Data= new Position(randomNum1,randomNum2,randomNum3);
                 positions[n][0]+=randomNum1;
                 positions[n][1]+=randomNum2;
                 positions[n][2]+=randomNum3;

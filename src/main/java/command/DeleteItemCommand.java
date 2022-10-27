@@ -4,8 +4,13 @@ import Query.EventStore;
 import Query.ItemDeletedEvent;
 
 public class DeleteItemCommand extends Command{
+    public String getName() {
+        return name;
+    }
+
+    private String name;
     public DeleteItemCommand(String name){
-        ItemDeletedEvent event = new ItemDeletedEvent(name);
-        EventStore.singleInstance.store(event);
+        this.name=name;
+        CommandHandler.handle(this);
     }
 }
