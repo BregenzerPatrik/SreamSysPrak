@@ -13,7 +13,7 @@ public class EventHandler {
 
 
     public static void handle(ItemDeletedEvent event) {
-        ItemStore.singleInstance.removeFromStore(event.getTargetId());
+        ItemStore.singleInstance.removeFromStore(event.getName());
     }
 
 
