@@ -71,6 +71,7 @@ public class Main {
         //Teste, ob Get Item at position funktioniert:
         Position targetPos=new Position(5,3,-3);
         System.out.println(query.getMovingItemsAtPosition(targetPos));
+        move=new Position(4,8,0);
         new MoveItemCommand("Test2",move);//Neue Position Test2(5,3,-3)
         System.out.println(query.getMovingItemsAtPosition(targetPos));
 
