@@ -54,6 +54,7 @@ public class CommandHandler {
         }catch(Exception e){System.out.println(e);}
     }
     public static void handle(CreateItemCommand command){
+        UsedNamesAggregate.updateSortedEvents();
         if(!UsedNamesAggregate.isNameUsed(command.getName())){
             ItemCreatedEvent event=new ItemCreatedEvent(command.getName(), new Position(0,0,0),0,0);
 
@@ -65,6 +66,7 @@ public class CommandHandler {
         }
     }
     public static void handle(DeleteItemCommand command){
+        UsedNamesAggregate.updateSortedEvents();
         if (UsedNamesAggregate.isNameUsed(command.getName())){
             ItemDeletedEvent event = new ItemDeletedEvent(command.getName());
             try{
@@ -74,6 +76,8 @@ public class CommandHandler {
         }
     }
     public static void handle(MoveItemCommand command){
+        UsedPositionAggregate.updateSortedEvents();
+        UsedNamesAggregate.updateSortedEvents();
         if (command.getMoveCoords().isZeroMove()){
             //atempted move with zero vector
             return;
