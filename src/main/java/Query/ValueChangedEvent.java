@@ -1,13 +1,13 @@
 package Query;
 
 public class ValueChangedEvent extends Events{
-    private final int newValue;
+    private int newValue;
 
     public int getNewValue(){
         return this.newValue;
     }
     public ValueChangedEvent(String name, int newValue){
-        super(name);
+        super("ValueChangedEvent", name);
         this.newValue = newValue;
     }
 }

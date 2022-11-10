@@ -1,9 +1,6 @@
 package command;
 
-import Query.EventStore;
-import Query.ItemCreatedEvent;
-
-public class CreateItemCommand extends Command{
+public class CreateItemCommand extends CommandAbstract {
     public String getName() {
         return name;
     }

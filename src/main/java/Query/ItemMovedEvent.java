@@ -3,11 +3,10 @@ package Query;
 import command.Position;
 
 public class ItemMovedEvent extends Events{
-    private final Position moveCoords;
-    public String name;
+    private Position moveCoords;
 
     public ItemMovedEvent(String name, Position moveCoords){
-        super(name);
+        super("ItemMovedEvent", name);
         this.name = name;
         this.moveCoords=moveCoords;
 

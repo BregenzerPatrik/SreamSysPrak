@@ -1,5 +1,7 @@
 package Query;
 
+import com.google.gson.Gson;
+
 public class EventHandler {
 
 
@@ -14,6 +16,10 @@ public class EventHandler {
 
     public static void handle(ItemDeletedEvent event) {
         ItemStore.singleInstance.removeFromStore(event.getName());
+    }
+    public static void handle(String jsonEvent){
+        Gson gson = new Gson();
+        //gson.fromJson()
     }
 
 

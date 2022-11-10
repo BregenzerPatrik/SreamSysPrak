@@ -17,11 +17,11 @@ public class ItemCreatedEvent extends Events{
     public int getValue(){
         return this.value;
     }
-    public ItemCreatedEvent(String ItemName, Position ItemLocation, int ItemNumberOfMoves, int ItemValue){
-        super(ItemName);
-        this.location=ItemLocation;
-        this.numberOfMoves = ItemNumberOfMoves;
-        this.value = ItemValue;
+    public ItemCreatedEvent(String name, Position location, int numberOfMoves, int value){
+        super("ItemCreatedEvent", name);
+        this.location=location;
+        this.numberOfMoves = numberOfMoves;
+        this.value = value;
     }
 
 }

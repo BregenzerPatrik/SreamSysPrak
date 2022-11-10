@@ -5,20 +5,21 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class Events implements Serializable {
-    protected final Timestamp timestamp;
+
+    public String getEventType() {
+        return eventType;
+    }
+
+    protected String eventType;
 
     public String getName() {
         return name;
     }
 
-    protected final String name;
+    protected String name;
 
-    protected Events(String name){
+    protected Events(String eventType, String name){
+        this.eventType = eventType;
         this.name = name;
-        this.timestamp = Timestamp.valueOf(LocalDateTime.now());
-    }
-
-    public Timestamp getTimestamp(){
-        return this.timestamp;
     }
 }

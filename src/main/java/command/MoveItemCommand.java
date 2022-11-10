@@ -1,9 +1,6 @@
 package command;
 
-import Query.EventStore;
-import Query.ItemMovedEvent;
-
-public class MoveItemCommand extends Command{
+public class MoveItemCommand extends CommandAbstract {
     public String getName() {
         return name;
     }

@@ -1,9 +1,6 @@
 package command;
 
-import Query.EventStore;
-import Query.ItemDeletedEvent;
-
-public class DeleteItemCommand extends Command{
+public class DeleteItemCommand extends CommandAbstract {
     public String getName() {
         return name;
     }

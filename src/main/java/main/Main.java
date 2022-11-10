@@ -9,7 +9,7 @@ import javax.jms.*;
 
 public class Main {
     public static void main(String[] args) {
-
+        //Erzeuge Producer
         //Erzeuge Consumer
         try {
             System.out.println("----Erzeuge Consumer----");

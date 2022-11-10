@@ -1,9 +1,6 @@
 package command;
 
-import Query.EventStore;
-import Query.ValueChangedEvent;
-
-public class ChangeValueCommand extends Command{
+public class ChangeValueCommand extends CommandAbstract {
     public String getName() {
         return name;
     }
