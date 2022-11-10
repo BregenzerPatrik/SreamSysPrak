@@ -2,10 +2,7 @@ package Query;
 
 import command.Position;
 
-/**
- * Hello world!
- *
- */
+
 public interface MovingItem
 {
     String getName();

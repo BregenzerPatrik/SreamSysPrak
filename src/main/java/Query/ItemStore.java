@@ -35,10 +35,11 @@ public class ItemStore implements Query{
     }
 
     @Override
-    public Collection<MovingItemDTO> getMovingItemsAtPosition(Position position) {
+    public Collection<MovingItemDTO> getMovingItemsAtPosition(int[] position) {
+        Position pos = new Position(position[0],position[1],position[2]);
         Collection<MovingItemDTO> result= new ArrayList<>();
         for (MovingItemDTO item:items.values()) {
-            if (item.getLocation().getX()==position.getX() && item.getLocation().getY()==position.getY() && item.getLocation().getZ()==position.getZ()){
+            if (item.getLocation().getX()==position[0] && item.getLocation().getY()==position[1] && item.getLocation().getZ()==position[2]){
                 result.add(item);
             }
         }

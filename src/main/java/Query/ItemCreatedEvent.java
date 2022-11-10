@@ -4,9 +4,9 @@ import command.Position;
 
 public class ItemCreatedEvent extends Events{
 
-    private final Position location;
-    private final int numberOfMoves;
-    private final int value;
+    private Position location;
+    private int numberOfMoves;
+    private int value;
 
     public Position getLocation(){
         return this.location;

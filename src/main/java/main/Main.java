@@ -122,7 +122,10 @@ public class Main {
 
         System.out.println("----Teste Get Item At Position----");
         //Teste, ob Get Item at position funktioniert:
-        Position targetPos=new Position(5,3,-3);
+        int[] targetPos= new int[3];
+        targetPos[0]=5;
+        targetPos[1]=3;
+        targetPos[2]=-3;
         String itemName = query.getMovingItemsAtPosition(targetPos).iterator().next().getName();
 
         System.out.println("Correct Item At Position: "+(itemName.equals("Test1")));

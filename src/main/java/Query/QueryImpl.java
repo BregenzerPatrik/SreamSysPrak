@@ -17,7 +17,8 @@ public class QueryImpl implements Query{
     }
 
     @Override
-    public Collection<MovingItemDTO> getMovingItemsAtPosition(Position position) {
+    public Collection<MovingItemDTO> getMovingItemsAtPosition(int[] position) {
+        //Position pos= new Position(position[0],position[1],position[2]);
         return ItemStore.singleInstance.getMovingItemsAtPosition(position);
     }
 }
