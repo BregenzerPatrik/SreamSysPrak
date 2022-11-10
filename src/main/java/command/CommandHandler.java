@@ -50,20 +50,15 @@ public class CommandHandler {
     public  static void handle(ChangeValueCommand command){
     ValueChangedEvent event= new ValueChangedEvent(command.getName(),command.getValueData());
         try{
-            ObjectMessage message = singleInstance.session.createObjectMessage(event);
-            singleInstance.producer.send(message);
+            KafkaProducer.sendEvent(event);
         }catch(Exception e){System.out.println(e);}
     }
     public static void handle(CreateItemCommand command){
         if(!UsedNamesAggregate.isNameUsed(command.getName())){
             ItemCreatedEvent event=new ItemCreatedEvent(command.getName(), new Position(0,0,0),0,0);
-            UsedNamesAggregate.addName(command.getName());
-            NumberOfMovesAggregate.addNewItem(command.getName());
-            UsedPositionAggregate.addUnmovedItem(command.getName());
 
             try{
-                ObjectMessage message = singleInstance.session.createObjectMessage(event);
-                singleInstance.producer.send(message);
+                KafkaProducer.sendEvent(event);
             }catch(Exception e){System.out.println(e);}
 
 
@@ -73,13 +68,12 @@ public class CommandHandler {
         if (UsedNamesAggregate.isNameUsed(command.getName())){
             ItemDeletedEvent event = new ItemDeletedEvent(command.getName());
             try{
-                ObjectMessage message = singleInstance.session.createObjectMessage(event);
-                singleInstance.producer.send(message);
+                KafkaProducer.sendEvent(event);
+
             }catch(Exception e){System.out.println(e);}
         }
     }
     public static void handle(MoveItemCommand command){
-
         if (command.getMoveCoords().isZeroMove()){
             //atempted move with zero vector
             return;
@@ -103,7 +97,7 @@ public class CommandHandler {
         ItemMovedEvent event=new ItemMovedEvent(command.getName(), command.getMoveCoords());
         //UsedPositionAggregate.changePosition(command.getName(),newPosition);
         try{
-            ObjectMessage message = singleInstance.session.createObjectMessage(event);
-            singleInstance.producer.send(message);
+            KafkaProducer.sendEvent(event);
+
         }catch(Exception e){System.out.println(e);}    }
 }

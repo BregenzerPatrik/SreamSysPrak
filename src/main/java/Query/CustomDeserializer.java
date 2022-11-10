@@ -48,7 +48,7 @@ public class CustomDeserializer<T extends Serializable> implements Deserializer<
             System.out.println("ERROR event of unknown type was sent");
             return null;
         }
-        System.out.println(event.toString());
+        //System.out.println(event.toString());
         return (T) event;
     }
 

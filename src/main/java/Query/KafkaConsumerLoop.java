@@ -61,9 +61,9 @@ public class KafkaConsumerLoop implements Runnable {
                 ConsumerRecords<String, Events> records = consumer.poll(duration);
 
                 for (ConsumerRecord<String, Events> record : records) {
+                    //System.out.println(record.value());
                     EventHandler.handle(record.value());
                 }
-
 
             }
         } catch (Exception e) {
