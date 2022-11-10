@@ -10,7 +10,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import java.util.*;
 
 public class UsedPositionAggregate {
-
+    private static TreeMap<Long,ConsumerRecord<String, Events>>  sortedRecords=null;
     private static TreeMap<Long,ConsumerRecord<String, Events>> getTimeSortedRecords(ConsumerRecords<String,Events> inputRecords){
         TreeMap<Long,ConsumerRecord<String, Events>> sortingMap= new TreeMap<>();
         long lastTimestamp=0;
@@ -20,11 +20,7 @@ public class UsedPositionAggregate {
         return sortingMap;
     }
 
-    public static getEvents(){
-        
-    }
-    private static Map<String,Position> getCurrentState() {
-         //returns a map with key = NameOfObject, Value=Position of Object
+    public static void  updateSortedEvents(){
         List<String> topics = new ArrayList<>();
         topics.add("ItemCreatedEvent");
         topics.add("ItemDeletedEvent");
@@ -33,6 +29,10 @@ public class UsedPositionAggregate {
                 "UsedPositionConsumer",
                 topics);
         TreeMap<Long,ConsumerRecord<String, Events>> sortedRecords=getTimeSortedRecords(records);
+        UsedPositionAggregate.sortedRecords = sortedRecords;
+    }
+    private static Map<String,Position> getCurrentState() {
+         //returns a map with key = NameOfObject, Value=Position of Object
 
         Map<String,Position> result= new TreeMap<String,Position>() ;
 

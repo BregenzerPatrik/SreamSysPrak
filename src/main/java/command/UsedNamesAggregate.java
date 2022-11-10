@@ -12,6 +12,7 @@ import Query.ItemDeletedEvent;
 
 public class UsedNamesAggregate {
     private static ArrayList<String> usedNames=new ArrayList<>();
+    private static TreeMap<Long,ConsumerRecord<String, Events>>  sortedRecords=null;
 
     private static TreeMap<Long,ConsumerRecord<String, Events>> getTimeSortedRecords(ConsumerRecords<String,Events> inputRecords){
         TreeMap<Long,ConsumerRecord<String, Events>> sortingMap= new TreeMap<>();
@@ -21,14 +22,17 @@ public class UsedNamesAggregate {
         }
         return sortingMap;
     }
-    public static boolean isNameUsed(String name){
+    public static void  updateSortedEvents(){
         List<String> topics = new ArrayList<>();
         topics.add("ItemCreatedEvent");
         topics.add("ItemDeletedEvent");
         ConsumerRecords<String,Events> records = DomainModelConsumer.getPreviousEvents("UsedNamesConsumer",
-                                                                                "UsedNamesConsumer",
-                                                                                topics);
+                "UsedNamesConsumer",
+                topics);
         TreeMap<Long,ConsumerRecord<String, Events>> sortedRecords=getTimeSortedRecords(records);
+        UsedNamesAggregate.sortedRecords=sortedRecords;
+    }
+    public static boolean isNameUsed(String name){
         boolean nameIsUsed = false;
         for (long timestamp : sortedRecords.keySet()) {
             ConsumerRecord<String, Events> record = sortedRecords.get(timestamp);
