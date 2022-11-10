@@ -12,7 +12,7 @@ public class UsedPositionAggregate {
             return false;
         }
         else {
-            boolean result =allUsedPositions.containsValue(position);
+            boolean result =getCurrentState().containsValue(position);
             return result;
         }
     }
@@ -22,7 +22,7 @@ public class UsedPositionAggregate {
             //There may be more than one Item at Position(0,0,0)
             return null;
         }
-        for (Map.Entry<String, Position> entry : allUsedPositions.entrySet()) {
+        for (Map.Entry<String, Position> entry : getCurrentState().entrySet()) {
             if (entry.getValue().equals(position)){
                 return entry.getKey();
             }
@@ -30,30 +30,9 @@ public class UsedPositionAggregate {
         return null;
     }
 
-    public static void changePosition(String name,Position newPosition){
-         String nameOfObjectAtTargetPosition = getItemNameByPosition(newPosition);
-
-        if(nameOfObjectAtTargetPosition!=null){
-            UsedPositionAggregate.removeItem(nameOfObjectAtTargetPosition);
-        }
-        UsedPositionAggregate.removeItem(name);
-        allUsedPositions.put(name, newPosition);
-    }
-
-    public static void addUnmovedItem(String name){
-        if(!allUsedPositions.containsKey(name)){
-            allUsedPositions.put(name,new Position(0,0,0));
-        }
-    }
-    public static void removeItem(String name){
-        if(allUsedPositions.containsKey(name)){
-            allUsedPositions.remove(name);
-        }
-    }
-
     public static Position getPositionByName(String name) {
-        if (allUsedPositions.containsKey(name)){
-            return allUsedPositions.get(name);
+        if (getCurrentState().containsKey(name)){
+            return getCurrentState().get(name);
         }
         return null;
     }

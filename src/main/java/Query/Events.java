@@ -22,4 +22,9 @@ public class Events implements Serializable {
         this.eventType = eventType;
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return eventType+" :"+name;
+    }
 }

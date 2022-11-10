@@ -27,10 +27,9 @@ public class KafkaProducer {
     public static void sendEvent(final Events event) throws InterruptedException {
 
         try {
-                final ProducerRecord<String, Events> record =
-                        new ProducerRecord<>(event.getEventType(), event.getClass().toString(), event);
-                producer.send(record, (metadata, exception) -> {
-                    System.out.println("----Event versendet----");
+            final ProducerRecord<String, Events> record =
+                    new ProducerRecord<>(event.getEventType(), event.getClass().toString(), event);
+            producer.send(record, (metadata, exception) -> {
                 });
         } finally {
             producer.flush();

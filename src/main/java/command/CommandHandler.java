@@ -72,9 +72,6 @@ public class CommandHandler {
     public static void handle(DeleteItemCommand command){
         if (UsedNamesAggregate.isNameUsed(command.getName())){
             ItemDeletedEvent event = new ItemDeletedEvent(command.getName());
-            UsedNamesAggregate.deleteName(command.getName());
-            NumberOfMovesAggregate.removeItem(command.getName());
-            UsedPositionAggregate.removeItem(command.getName());
             try{
                 ObjectMessage message = singleInstance.session.createObjectMessage(event);
                 singleInstance.producer.send(message);
@@ -104,7 +101,7 @@ public class CommandHandler {
             new DeleteItemCommand(nameOfOldItemAtNewPosition);
         }
         ItemMovedEvent event=new ItemMovedEvent(command.getName(), command.getMoveCoords());
-        UsedPositionAggregate.changePosition(command.getName(),newPosition);
+        //UsedPositionAggregate.changePosition(command.getName(),newPosition);
         try{
             ObjectMessage message = singleInstance.session.createObjectMessage(event);
             singleInstance.producer.send(message);

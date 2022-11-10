@@ -21,7 +21,7 @@ public class EventsSerialiser implements Serializer {
                 System.out.println("Null received at serializing");
                 return null;
             }
-            System.out.println("Serializing...");
+            //System.out.println("Serializing...");
             return objectMapper.writeValueAsBytes(data);
         } catch (Exception e) {
             throw new SerializationException("Error when serializing MessageDto to byte[]");

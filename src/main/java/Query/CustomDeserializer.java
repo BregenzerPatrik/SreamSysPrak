@@ -23,8 +23,8 @@ public class CustomDeserializer<T extends Serializable> implements Deserializer<
     @Override
     public T deserialize(String topic, byte[] objectData) {
         String eventSting = new String(objectData, StandardCharsets.UTF_8);
-        System.out.println(eventSting);
-        System.out.println(topic);
+        //System.out.println(eventSting);
+        //System.out.println(topic);
         Gson gson = new Gson();
         Events event = null;
         if (topic.equals("ItemCreatedEvent")) {

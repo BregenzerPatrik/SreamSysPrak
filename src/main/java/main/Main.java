@@ -1,11 +1,11 @@
 package main;
 
-import Query.EventConsumer;
-import Query.QueryImpl;
+import Query.*;
 import command.*;
-import org.apache.activemq.ActiveMQConnectionFactory;
+import org.slf4j.LoggerFactory;
 
-import javax.jms.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {

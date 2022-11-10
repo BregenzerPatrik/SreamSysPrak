@@ -1,32 +1,26 @@
 package command;
 
-import java.util.HashMap;
+import Query.Events;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class NumberOfMovesAggregate {
-    private final static HashMap<String,Integer> nameToMoveCount = new HashMap<>();
     private final static int limit = 19;
-    public static void addNewItem(String name){
-        nameToMoveCount.put(name,0);
-    }
     public static boolean isMoveLimitReached(String name){
-        return getMovesOfObject(name)>=limit;
-    }
-    public static int getMovesOfObject(String name){
-        return nameToMoveCount.get(name);
-    }
-    public static void incrementMoveCount(String name){
-        if (nameToMoveCount.containsKey(name)) {
-            int currentCount = nameToMoveCount.get(name);
-            NumberOfMovesAggregate.removeItem(name);
-            nameToMoveCount.put(name,currentCount+1);
-        }
-    }
-    public static void removeItem(String name){
-        if(nameToMoveCount.containsKey(name)){
-            nameToMoveCount.remove(name);
-        }
-    }
+        List<String> topics= new ArrayList<>();
+        topics.add("ItemMovedEvent");
+        ConsumerRecords<String, Events> records
+                = DomainModelConsumer.getPreviousEvents("NumberOfMovesConsumer","NumberOfMovesConsumer",topics);
+        AtomicInteger movedEventsCouter = new AtomicInteger();
+        records.forEach(rec->{
+            if(rec.value().getName().equals(name)){
+                movedEventsCouter.getAndIncrement();
+            }
+        });
 
-
-
+        return movedEventsCouter.get()>=limit;
+    }
 }

@@ -5,10 +5,11 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.apache.kafka.common.serialization.StringSerializer;
 
+import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
@@ -22,14 +23,14 @@ public class KafkaConsumerLoop implements Runnable {
     private final String ConsumerGroupId = "singleGroup";
 
     private final static String BOOTSTRAP_SERVERS =
-            "localhost:9092,localhost:9093,localhost:9094";
+            "localhost:9092";
 
     public KafkaConsumerLoop(String id, List<String> topics) {
         System.out.println("----Erzeuge Consumer----");
 
         Properties props = new Properties();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
-        props.put(ConsumerConfig.CLIENT_ID_CONFIG, "KafkaExampleConsumer");
+        props.put(ConsumerConfig.CLIENT_ID_CONFIG, id);
         props.put(ConsumerConfig.GROUP_ID_CONFIG,ConsumerGroupId);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,CustomDeserializer.class.getName());
@@ -43,11 +44,21 @@ public class KafkaConsumerLoop implements Runnable {
     public void run() {
         try {
             System.out.println("---Starte Consumer---");
-            consumer.subscribe(topics);
+            //consumer.subscribe(topics);
+            ArrayList<TopicPartition> tps = new ArrayList<>();
+            topics.forEach(t-> tps.add(new TopicPartition(t,0)));
+            consumer.assign(tps);
+            consumer.seekToBeginning(tps);
+            Duration duration1 = Duration.ofMillis(500);
+            ConsumerRecords<String, Events> records1 = consumer.poll(duration1);
 
+            for (ConsumerRecord<String, Events> record : records1) {
+
+                EventHandler.handle(record.value());
+            }
             while (!shutdown.get()) {
-                System.out.println("looking for message");
-                ConsumerRecords<String, Events> records = consumer.poll(500);
+                Duration duration = Duration.ofMillis(500);
+                ConsumerRecords<String, Events> records = consumer.poll(duration);
 
                 for (ConsumerRecord<String, Events> record : records) {
                     EventHandler.handle(record.value());
