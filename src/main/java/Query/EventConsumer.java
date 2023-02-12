@@ -16,7 +16,6 @@ public class EventConsumer implements MessageListener {
                 if(objectMessage!=null){
                     Events event = (Events) objectMessage.getObject();
                     if(event!=null){
-                        //System.out.println("Event erhallten "+event.getName());
                         EventHandler.handle(event);
                     }
                 }

@@ -12,8 +12,8 @@ public class Main {
         //kill l4j output
         System.setProperty(org.slf4j.simple.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "off");
         org.slf4j.Logger log = LoggerFactory.getLogger(org.apache.kafka.clients.NetworkClient.class);
-
-
+        //new CommandHandler();
+        CommandHandler.setEventSender(new KafkaSender());
         List<String> topics = new ArrayList<>();
         topics.add("ItemCreatedEvent");
         topics.add("ItemMovedEvent");
